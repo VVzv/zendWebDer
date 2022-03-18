@@ -132,6 +132,8 @@ def defile2down(session, up_info, c, filename, headers, src_file_dir, des_file_d
                 c = ckCap(session, headers)
                 time.sleep(0.5)
                 return defile2down(session, up_info, c, filename, headers, src_file_dir, des_file_dir, index+1)
+            else:
+                print("\033[35m[-] 解密失败[{}]\033[0m".format(filename))
 
 if __name__ == '__main__':
     # 文件目录结尾不用加斜杠
