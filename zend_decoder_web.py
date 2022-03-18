@@ -127,9 +127,11 @@ def defile2down(session, up_info, c, filename, headers, src_file_dir, des_file_d
                 with open(down_save_file, "w") as f:
                     f.write(res.text)
         else:
-            c = ckCap(session, headers)
-            time.sleep(0.5)
-            return defile2down(session, up_info, c, filename, headers, src_file_dir, des_file_dir, index+1)
+            error_msg = decode_info["msg"]
+            if "解密失败" not in error_msg:
+                c = ckCap(session, headers)
+                time.sleep(0.5)
+                return defile2down(session, up_info, c, filename, headers, src_file_dir, des_file_dir, index+1)
 
 if __name__ == '__main__':
     # 文件目录结尾不用加斜杠
