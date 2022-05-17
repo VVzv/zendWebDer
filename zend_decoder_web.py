@@ -141,7 +141,10 @@ if __name__ == '__main__':
     des_file_dir = "./destination" # 目的文件路径（zend解密目录）
     f_list = fileFilter(src_file_dir, des_file_dir)
     rand_time_list = [0.1, 0.2, 0.3]
-    print("[*] 共统计需解密文件{}.".format(len(f_list)))
+    min_all_time = int((len(f_list) * 3)/60)
+    h_time = int(min_all_time // 60)
+    min_time = int(min_all_time - (h_time * 60))
+    print("[*] 共统计需解密文件{}，预计用时{}时{}分.".format(len(f_list), h_time, min_time))
     for f in f_list:
         headers = {
             "User-Agent": randUserAgentNoTitle(),
