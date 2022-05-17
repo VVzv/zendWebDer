@@ -47,7 +47,7 @@ def upFile(session, file, headers, src_dir, des_dir, index=0):
         return [0, 0, 0]
     filename = file.split("/")[-1]
     file_context = open(file, "rb").read()
-    if b"<?php @Zend;" not in file_context: # 判断php文件是否为zend加密的
+    if b"<?php @Zend;" not in file_context and b"Zend\x00" not in file_context: # 判断php文件是否为zend加密的
         dirExist(des_file_name)
         shutil.copy(file, des_file_name)
         return [0, 0, 0]
@@ -141,6 +141,9 @@ if __name__ == '__main__':
     des_file_dir = "./destination" # 目的文件路径（zend解密目录）
     f_list = fileFilter(src_file_dir, des_file_dir)
     rand_time_list = [0.1, 0.2, 0.3]
+    min_time = (len(f_list)*3)/60
+    h_time = min_time / 60
+    print("[*] 共统计需解密文件{}，预计用时{}时{}分.".format(len(f_list), h_time, min_time))
     for f in f_list:
         headers = {
             "User-Agent": randUserAgentNoTitle(),
